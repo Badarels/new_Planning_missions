@@ -1,0 +1,14 @@
+LOAD DATABASE
+     FROM      mysql://root:relsnepturne@localhost:3306/bcenter_services
+     INTO      postgresql://postgres:Relsnepturne90@localhost:5432/bcenter_services
+
+WITH include drop, create tables, create indexes, reset sequences
+
+CAST type datetime to timestamptz drop default drop not null using zero-dates-to-null,
+     type date drop default drop not null using zero-dates-to-null,
+     type longtext to text,
+     type longblob to bytea
+
+SET maintenance_work_mem to '128MB',
+     work_mem to '12MB',
+     search_path to 'public,pg_catalog' 

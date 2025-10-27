@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Code d'authentification</title>
+</head>
+<body>
+    <h1>Votre code d'authentification</h1>
+    <p>Voici votre code d'authentification à deux facteurs :</p>
+    <h2 th:text="${code}" style="font-size: 24px; font-weight: bold; color: #1a73e8;"></h2>
+    <p>Ce code expirera dans <span th:text="${validityMinutes}"></span> minutes.</p>
+    <p>Si vous n'avez pas tenté de vous connecter, ignorez cet email et sécurisez votre compte.</p>
+</body>
+</html> 
