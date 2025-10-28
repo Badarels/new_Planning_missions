@@ -29,8 +29,8 @@
                 <button type="button" class="btn btn-light" [class.active]="activeTab==='list'" (click)="setTab('list')">Vue Liste</button>
                 <button type="button" class="btn btn-light" [class.active]="activeTab==='grid'" (click)="setTab('grid')">Vue Grille</button>
               </div>
-              <a class="btn btn-primary px-3 ms-auto" [routerLink]="'/employe/ajout'">
-                <i class="bi bi-plus-circle me-1"></i> Ajouter
+              <a class="btn btn-outline-primary btn-sm ms-auto d-inline-flex align-items-center gap-1" [routerLink]="'/employe/ajout'">
+                <i class="bi bi-plus-lg"></i><span class="d-none d-sm-inline">Ajouter</span>
               </a>
             </div>
             

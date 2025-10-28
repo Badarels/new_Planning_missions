@@ -1,6 +1,6 @@
 /* Densité et style fins pour Liste Employés */
 .pagetitle h1 {
-  font-size: 1.125rem;
+  font-size: 24px;
   font-weight: 600;
 }
 
@@ -27,12 +27,12 @@
 
 /* Champ de recherche */
 .medecin-search-input {
-  height: 36px;
+  height: 30px;
   font-size: .9rem;
 }
-.with-blue-border { border-color: #d6def0; border-radius: .5rem 0 0 .5rem; height: 36px; }
+.with-blue-border { border-color: #d6def0; border-radius: .5rem 0 0 .5rem; height: 30px; }
 .with-blue-border:focus { border-color: #4154f1; box-shadow: 0 0 0 .2rem rgba(65,84,241,.12); }
-.input-group-text { padding: .35rem .6rem; border-radius: 0 .5rem .5rem 0; background: #f5f7fe; border-color: #d6def0; color: #4154f1; }
+.input-group-text { height: 30px; padding: 0 .5rem; display: flex; align-items: center; justify-content: center; border-radius: 0 .5rem .5rem 0; background: #f5f7fe; border-color: #d6def0; color: #4154f1; }
 ::placeholder { color: #99a7c2; opacity: 1; }
 
 /* Card style comme CH */

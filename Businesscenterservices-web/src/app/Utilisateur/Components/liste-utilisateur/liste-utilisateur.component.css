@@ -1,5 +1,5 @@
 /* Densité et style fins pour Liste Utilisateurs */
-.pagetitle h1 { font-size: 1.125rem; font-weight: 600; }
+.pagetitle h1 { font-size: 24px; font-weight: 600; }
 .card-title { font-size: 0.95rem; margin-bottom: .75rem; }
 
 /* Barre d'actions (Vue Liste / Vue Grille) */
@@ -17,8 +17,8 @@
 }
 
 /* Champ de recherche compact */
-.medecin-search-input { height: 34px; font-size: .85rem; }
-.input-group-text { padding: .25rem .5rem; }
+.medecin-search-input { height: 30px; font-size: 0.9rem; }
+.input-group-text { height: 30px; padding: 0 .5rem; display: flex; align-items: center; justify-content: center; }
 
 /* Tableau compact + entête sticky réduite */
 .table th, .table td { padding: .4rem .5rem; font-size: .82rem; vertical-align: middle; }

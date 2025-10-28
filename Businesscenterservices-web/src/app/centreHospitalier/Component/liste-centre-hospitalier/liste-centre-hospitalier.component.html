@@ -8,13 +8,6 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a [routerLink]="'/Accueil/accueil'">ACCUEIL</a></li>
           <li class="breadcrumb-item">Liste</li>
-          <li class="navmedecin">
-            <div class="row mb-3">
-              <div class="col-sm-10 col-lg-12">
-                <button type="submit" class="btn btn-primary" [routerLink]="'/ajoutCentreHospitalier'">+Nouveau Centre Hospitalier</button>
-              </div>
-            </div>
-          </li>
         </ol>
       </nav>
       </div>
@@ -26,7 +19,12 @@
             <div class="card">
                 <div class="card-body">
               
-                  <h2 class="card-title">Centre Hospitaliers</h2>              
+                  <div class="d-flex align-items-center mb-2">
+                    <h2 class="card-title mb-0">Centre Hospitaliers</h2>
+                    <a class="btn btn-outline-primary btn-sm ms-auto d-inline-flex align-items-center gap-1" [routerLink]="'/ajoutCentreHospitalier'">
+                      <i class="bi bi-plus-lg"></i><span class="d-none d-sm-inline">Ajouter</span>
+                    </a>
+                  </div>
                   <!-- Formulaire de recherche à droite avec une taille md-5 -->
                   <div class="col-md-4 col-lg-4 ms-auto justify-content-md-end">
                     <form class="form-inline mb-3 ml-auto">

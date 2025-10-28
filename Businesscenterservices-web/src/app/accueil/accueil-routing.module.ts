@@ -10,7 +10,7 @@ import { AccueilComponent } from './Component/accueil/accueil.component';
   imports: [
     RouterModule.forChild([
       {
-        path: 'accueil',
+        path: '',
         component: AccueilComponent,
       }
     ])

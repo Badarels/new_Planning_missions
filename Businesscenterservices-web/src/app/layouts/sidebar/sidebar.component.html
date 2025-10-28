@@ -10,7 +10,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
     <!-- Dashboard -->
     <li class="nav-item mb-1">
-      <a class="nav-link d-flex align-items-center gap-2" routerLink="/Accueil" routerLinkActive="active">
+      <a class="nav-link d-flex align-items-center gap-2" routerLink="/Accueil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <i class="bi bi-speedometer2 fs-5"></i>
         <span>Tableau de bord</span>
       </a>
@@ -18,12 +18,12 @@
 
     <!-- Utilisateurs -->
     <li class="nav-item mb-1">
-      <a class="nav-link collapsed d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#users-nav">
+      <a class="nav-link d-flex align-items-center justify-content-between" [class.collapsed]="usersCollapsed" (click)="toggleSection('users'); $event.preventDefault()" role="button" href="#">
         <i class="bi bi-people fs-5 me-2"></i>
         <span>Utilisateurs</span>
         <i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <div id="users-nav" class="collapse" data-bs-parent="#sidebar-nav">
+      <div id="users-nav" class="collapse" [ngbCollapse]="usersCollapsed">
         <ul class="nav-content list-unstyled ms-4 mt-1">
           <li>
             <a routerLink="/listeUtilisateur/ajout" routerLinkActive="active">
@@ -41,12 +41,12 @@
 
     <!-- Clients -->
     <li class="nav-item mb-1">
-      <a class="nav-link collapsed d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#clients-nav">
+      <a class="nav-link d-flex align-items-center justify-content-between" [class.collapsed]="clientsCollapsed" (click)="toggleSection('clients'); $event.preventDefault()" role="button" href="#">
         <i class="bi bi-briefcase fs-5 me-2"></i>
         <span>Clients</span>
         <i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <div id="clients-nav" class="collapse" data-bs-parent="#sidebar-nav">
+      <div id="clients-nav" class="collapse" [ngbCollapse]="clientsCollapsed">
         <ul class="nav-content list-unstyled ms-4 mt-1">
           <li>
             <a routerLink="/medecin" routerLinkActive="active">
@@ -64,15 +64,15 @@
 
     <!-- Missions -->
     <li class="nav-item mb-1">
-      <a class="nav-link collapsed d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#missions-nav">
+      <a class="nav-link d-flex align-items-center justify-content-between" [class.collapsed]="missionsCollapsed" (click)="toggleSection('missions'); $event.preventDefault()" role="button" href="#">
         <i class="bi bi-journal-text fs-5 me-2"></i>
         <span>Missions</span>
         <i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <div id="missions-nav" class="collapse" data-bs-parent="#sidebar-nav">
+      <div id="missions-nav" class="collapse" [ngbCollapse]="missionsCollapsed">
         <ul class="nav-content list-unstyled ms-4 mt-1">
           <li>
-            <a routerLink="/mission/ajout" routerLinkActive="active">
+            <a routerLink="/mission/ajout-mission" routerLinkActive="active">
               <i class="bi bi-plus-circle"></i> Nouvelle mission
             </a>
           </li>
@@ -87,7 +87,7 @@
 
     <!-- Planning -->
     <li class="nav-item mb-1">
-      <a class="nav-link d-flex align-items-center gap-2" routerLink="/planningMission" routerLinkActive="active">
+      <a class="nav-link d-flex align-items-center gap-2" routerLink="/planningMission/plannig" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <i class="bi bi-calendar-week fs-5"></i>
         <span>Planning</span>
       </a>
@@ -103,12 +103,12 @@
 
     <!-- Personnels -->
     <li class="nav-item mb-1">
-      <a class="nav-link collapsed d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#personnel-nav">
+      <a class="nav-link d-flex align-items-center justify-content-between" [class.collapsed]="personnelCollapsed" (click)="toggleSection('personnel'); $event.preventDefault()" role="button" href="#">
         <i class="bi bi-people-fill fs-5 me-2"></i>
         <span>Personnels</span>
         <i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <div id="personnel-nav" class="collapse" data-bs-parent="#sidebar-nav">
+      <div id="personnel-nav" class="collapse" [ngbCollapse]="personnelCollapsed">
         <ul class="nav-content list-unstyled ms-4 mt-1">
           <li>
             <a routerLink="/employe/ajout" routerLinkActive="active">

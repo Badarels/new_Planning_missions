@@ -8,13 +8,6 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a [routerLink]="'/Accueil/accueil'">ACCUEIL</a></li>
           <li class="breadcrumb-item">Liste</li>
-          <li class="navmedecin">
-            <div class="row mb-3">
-              <div class="col-sm-10 col-lg-12">
-                <button type="submit" class="btn btn-primary" [routerLink]="'/mission/ajout-mission'">+nouvelle mission</button>
-              </div>
-            </div>
-          </li>
         </ol>
       </nav>
       </div>
@@ -26,16 +19,19 @@
             <div class="card">
                 <div class="card-body">
               
-                  <h2 class="card-title">Missions</h2>              
+                  <div class="d-flex align-items-center mb-2">
+                    <h2 class="card-title mb-0">Missions</h2>
+                    <a class="btn btn-outline-primary btn-sm ms-auto d-inline-flex align-items-center gap-1" [routerLink]="'/mission/ajout-mission'">
+                      <i class="bi bi-plus-lg"></i><span class="d-none d-sm-inline">Ajouter</span>
+                    </a>
+                  </div>
                   <!-- Formulaire de recherche à droite avec une taille md-5 -->
                   <div class="col-md-4 col-lg-4 ms-auto justify-content-md-end">
                     <form class="form-inline mb-3 ml-auto">
                       <div class="form-group mx-md-2 mb-2">
                         <div class="input-group">
                           <input class="form-control with-blue-border fas fa-search medecin-search-input" type="search" [(ngModel)]="filteText" placeholder="Rechercher" aria-label="Search" name="filteText">
-                          <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-search fa-recherche"></i></span>
-                          </div>
+                          <span class="input-group-text"><i class="fas fa-search fa-recherche"></i></span>
                         </div>  
                       </div>
                     </form>
