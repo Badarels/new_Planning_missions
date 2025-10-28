@@ -65,6 +65,27 @@ export class ListeCentreHospitalierComponent implements OnInit{
     this.centreHospitalierservces.getCh().subscribe(
         (data: CentreHospitalier[])=>{
           this.centreHospitaliers = data.filter(ch => ch.archived == 0);
+          // Inject mock example if absent
+          const mockId = -999;
+          if (!this.centreHospitaliers.find(ch => (ch as any)?.id === mockId)) {
+            const mock: any = {
+              id: mockId,
+              nom_ch: 'Hajar CH (exemple)',
+              email_ch: 'hajar.ch@example.com',
+              telephone: '0700000001',
+              siret: 'HAJAR-CH-0001',
+              adresse: {
+                ville: 'Casablanca',
+                departement: 'Maarif',
+                nomRue: 'Boulevard Example',
+                numeroRue: '10',
+                codePostal: '20000',
+                region: 'Casablanca-Settat'
+              },
+              archived: 0
+            };
+            this.centreHospitaliers.unshift(mock);
+          }
         },
         (error)=>{
           return console.error('Erreur lors de la récupération des Ch', error);

@@ -21,7 +21,9 @@ export class HeaderComponent {
   constructor(private authService: AuthServices) { }
 
   toggleSidebar() {
+    // Revenir au comportement d'origine: simplement ouvrir/fermer le panneau
     const sidebar = document.querySelector('.sidebar') as HTMLElement;
+    if (!sidebar) return;
     sidebar.classList.toggle('show');
   }
 

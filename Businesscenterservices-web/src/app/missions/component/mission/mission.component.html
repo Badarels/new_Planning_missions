@@ -1,6 +1,5 @@
 
 
-<main id="main" class="main">
 
     <div class="pagetitle">
       <h1>Liste des Missions</h1>
@@ -12,7 +11,7 @@
           <li class="navmedecin">
             <div class="row mb-3">
               <div class="col-sm-10 col-lg-12">
-                <button type="submit" class="btn btn-primary" [routerLink]="'/ajoutMission/Ajout-mission'">+nouveau Missions</button>
+                <button type="submit" class="btn btn-primary" [routerLink]="'/mission/ajout-mission'">+nouvelle mission</button>
               </div>
             </div>
           </li>
@@ -29,11 +28,11 @@
               
                   <h2 class="card-title">Missions</h2>              
                   <!-- Formulaire de recherche à droite avec une taille md-5 -->
-                  <div class="col-md-4 col-lg-4 offset-md-8 justify-content-md-end">
+                  <div class="col-md-4 col-lg-4 ms-auto justify-content-md-end">
                     <form class="form-inline mb-3 ml-auto">
                       <div class="form-group mx-md-2 mb-2">
                         <div class="input-group">
-                          <input class="form-control with-blue-border fas fa-search" type="search" [(ngModel)]="filteText" placeholder="Rechercher" aria-label="Search" name="filteText">
+                          <input class="form-control with-blue-border fas fa-search medecin-search-input" type="search" [(ngModel)]="filteText" placeholder="Rechercher" aria-label="Search" name="filteText">
                           <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-search fa-recherche"></i></span>
                           </div>
@@ -88,8 +87,8 @@
                             </button>
                             <div ngbDropdownMenu [ngClass]="{'show': isDropdownOpen}" aria-labelledby="dropdownMenuButton">
                               <!-- Utilisez [routerLink] pour "Modifier" et (click) pour "Supprimer" -->
-                              <button class="dropdown-item" [routerLink]="['/profilMission/profil-mission', miss?.id]">Aperçue</button>
-                              <button class="dropdown-item" [routerLink]="['/editMission/edit-mission', miss?.id]">Modifier</button>
+                              <button class="dropdown-item" [routerLink]="['/mission/profil-mission', miss?.id]">Aperçu</button>
+                              <button class="dropdown-item" [routerLink]="['/mission/edit-mission', miss?.id]">Modifier</button>
                               <button class="dropdown-item" (click)="supprimerMissions($event, miss?.id)">Supprimer</button>
                             </div>
                           </div>
@@ -105,7 +104,6 @@
         </div>
 
       </section>
-</main>
 
 
 

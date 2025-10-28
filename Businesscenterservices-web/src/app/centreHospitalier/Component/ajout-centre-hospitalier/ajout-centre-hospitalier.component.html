@@ -1,6 +1,4 @@
 
-<main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Ajout CH</h1>
       <nav>
@@ -71,17 +69,15 @@
                                         <button type="button" class="btn btn-close btn-lg" aria-label="Close" (click)="deselectAddress()"></button>
                                     </span>
                                     </button>
-                                    <ul class="dropdown-menu" [class.show]="showDropdown">
-                                    <li style="margin: 10px;">
-                                        <div class="col-md-8 col-lg-8">
-                                        <div class="input-group" style="width: 350px;">
-                                            <input type="search" class="form-control fas fa-search with-blue-border" placeholder="Rechercher" [(ngModel)]="searchText" name="searchText" style="width: 300px;">
-                                            <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                            </div>
+                                    <ul class="dropdown-menu dropdown-menu-wide" [class.show]="showDropdown">
+                                      <li style="margin: 10px;">
+                                          <div class="col-md-12 col-lg-12">
+                                        <div class="input-group">
+                                            <input type="search" class="form-control fas fa-search with-blue-border medecin-search-input" placeholder="Rechercher" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" name="searchText">
+                                            <span class="input-group-text"><i class="bi bi-search"></i></span>
                                         </div>
-                                        </div>   
-                                    </li>
+                                          </div>   
+                                      </li>
                                     <li *ngFor="let adresse of adresses">
                                         <a class="dropdown-item" (click)="selectAddress(adresse)">
                                         {{ adresse.ville }} {{ adresse.departement }} {{ adresse.nomRue }} {{ adresse.numeroRue }}
@@ -140,6 +136,5 @@
         </div>
       </div>
     </section>
-  </main><!-- End #main -->
 
 

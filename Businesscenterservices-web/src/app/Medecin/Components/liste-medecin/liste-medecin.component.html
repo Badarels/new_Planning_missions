@@ -1,24 +1,14 @@
 
 
-<main id="main" class="main">
 
     <div class="pagetitle">
       <h1>Liste des Medecins</h1>
-      <div class="col-lg-12">
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a [routerLink]="'/Accueil/accueil'">ACCUEIL</a></li>
           <li class="breadcrumb-item">Liste</li>
-          <li class="navmedecin">
-            <div class="row mb-3">
-              <div class="col-sm-10 col-lg-12">
-                <button type="submit" class="btn btn-primary" [routerLink]="'/ajoutMedecin'">+Ajout nouveau médecin</button>
-              </div>
-            </div>
-          </li>
         </ol>
       </nav>
-      </div>
     </div><!-- End Page Title -->
 <section class="section">
 <!--**********************************
@@ -33,49 +23,33 @@
     <div class="container-fluid">            
 				<div class="row">
           <div class="col-lg-12">
-            <!-- Default Card  champ de recherche et choix de l'affichage des medecins-->
-            <div class="card" style="height: 60%;">
-              <div class="card-body py-2">
-                <ul class="nav nav-pills" style="margin-top: 0%;">
-                  <li class="nav-item">
-                    <a href="#grid-view" data-toggle="tab" class="nav-link active" aria-current="page">Vue Grille</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link mr-1" href="#list-view" data-toggle="tab">Vue Liste</a>
-                  </li>
-                  <li class="nav-item ml-auto offset-md-6 justify-content-md-end">
-                    <div class="col-md-12 col-lg-12 d-flex"> <!-- Utilisation de col-md-8 pour une longueur plus grande et d-flex pour la flexibilité -->
-                      <form class="form-inline mb-1">
-                        <div class="form-group">
-                          <div class="input-group" style="height: 30px;"> 
-                            <input class="form-control form-control-sm with-blue-border fas fa-search" type="search" [(ngModel)]="filterText" placeholder="Rechercher" aria-label="Search" name="filterText">
-                            <div class="input-group-append" style="height: 30px;">
-                              <span class="input-group-text"><i class="fas fa-search fa-recherche"></i></span>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </li>                  
-                  
-                </ul>
+            <div class="d-flex align-items-center mb-3 user-list-toggles w-100 gap-2">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-light" [class.active]="activeTab==='list'" (click)="setTab('list')">Vue Liste</button>
+                <button type="button" class="btn btn-light" [class.active]="activeTab==='grid'" (click)="setTab('grid')">Vue Grille</button>
               </div>
+              <a class="btn btn-primary px-3 ms-auto" [routerLink]="'/medecin/ajout'">
+                <i class="bi bi-plus-circle me-1"></i> Ajouter
+              </a>
             </div>
-            
-            
-            <!-- End Default Card -->     
-         </div>
-                    <div class="col-lg-12">
-                        <div class="row tab-content">
-                            <div id="list-view" class="tab-pane fade  col-lg-12">
+          </div>
+
+          
+              <div id="list-view" class="col-lg-12" *ngIf="activeTab==='list'">
                                 <!-- medecin-search.component.html -->
                                 <div class="card">
-                                        <h4 class="card-title" style="margin-left: 15px;">Medecins</h4>
-                                  <div *ngIf="!(medecins.length > 0)">
-                                    <div class="card-body">
+                                  <div class="card-body pt-3">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                      <h4 class="card-title mb-0">Médecins</h4>
+                                      <div class="input-group medecin-search-input" style="max-width: 260px;">
+                                        <input class="form-control with-blue-border" type="search" [(ngModel)]="filterText" [ngModelOptions]="{standalone: true}" placeholder="Rechercher" aria-label="Search">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                      </div>
+                                    </div>
+                                    <div *ngIf="!(medecins.length > 0)">
                                         <div class="table-responsive">
-                                           <table class="table datatable">
-                                                <thead>
+                                                 <table class="table datatable">
+                                                  <thead>
                                                     <tr>
                                                         <th>Nom</th>
                                                         <th>Prenom</th>
@@ -124,61 +98,34 @@
                                       </div>
                                     </div>
                                   </div>
-                                    
                                 </div>
-                            </div>
+              </div>
 
-                            <div id="grid-view" class="tab-pane active show fade col-lg-12">
-                                <div class="row">
-                                 <!-- <div *ngIf="!(medecins.length > 0)">-->
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 " *ngFor="let medecin of Medecin | search: filterText" >
-                                        <div class="card card-profile" >
-                                            <div class="card-header justify-content-end">
-                                              
-                                            </div>
-                                            <div class="card-body pt-2">
-                                                <div class="text-center">
-                                                  <!--<div class="profile-photo">
-                                                    <img src="" width="100" class="img-fluid rounded-circle" alt="">
-                                                  </div>-->
-                                                  <h3 class="mt-4 mb-1"> Dr. {{medecin?.nomMedecin}}</h3>
-                                                  <p class="text-muted">{{medecin?.prenomMedecin}}</p>
-                                                  <ul class="list-group mb-3 list-group-flush">
-                                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                                      <span>Spécialités :</span>
-                                                      <strong>
-                                                        <span *ngFor="let specialite of medecin.specialites; let last = last">{{specialite.nomSpecialite}}{{!last ? ' / ' : ''}}</span>
-                                                      </strong>
-                                                    </li>
-                                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                                      <span class="mb-0">N° Telephone 1 :</span>
-                                                      <strong>{{medecin?.telephoneMedecin_1}}</strong>
-                                                    </li>
-                                
-                                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                                      <span class="mb-0">Adresse :</span>
-                                                      <strong>{{medecin?.adresse?.ville}}</strong>
-                                                    </li>
-                                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                                      <span class="mb-0">Email:</span>
-                                                      <strong>{{medecin?.emailMedecin}}</strong>
-                                                    </li>
-                                                  </ul>
-                                                  <a class="btn btn-outline-primary btn-rounded mt-3 px-4" 
-                                                    [routerLink]="['/profilMedecin', medecin?.id]">Voir plus</a>
-                                                </div>
-                                              </div>
-                                        </div>
-                                    </div>
-                                  </div>
-                            </div>
+              <div id="grid-view" class="col-lg-12" *ngIf="activeTab==='grid'">
+                <div class="row user-grid g-3">
+                  <div class="col-12 text-center text-muted" *ngIf="(Medecin | search: filterText).length === 0">
+                    Aucun médecin trouvé.
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6 col-12" *ngFor="let medecin of Medecin | search: filterText">
+                    <div class="card user-grid-card h-100">
+                      <div class="card-body d-flex align-items-center gap-3">
+                        <div class="profile-photo flex-shrink-0">
+                          <img src="assets/img/profile-img.jpg" class="rounded-circle" alt="">
                         </div>
+                        <div class="flex-grow-1">
+                          <div class="fw-semibold small">Dr. {{medecin?.nomMedecin}} {{medecin?.prenomMedecin}}</div>
+                          <div class="text-muted extra-small">{{medecin?.adresse?.ville}} • {{medecin?.emailMedecin}}</div>
+                          <div class="text-muted extra-small">{{medecin?.telephoneMedecin_1}}</div>
+                          <a class="btn btn-outline-primary btn-sm mt-2" [routerLink]="['/medecin/profil', medecin?.id]">Aperçu</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           </div> 
-        </div>
-     </div>
-  </div>     
 </section>
-</main>
-
 
 

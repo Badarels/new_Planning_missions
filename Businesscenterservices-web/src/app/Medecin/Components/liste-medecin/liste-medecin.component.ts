@@ -5,6 +5,7 @@ import { MedecinService } from '../../Services/medecin.service';
 import { Subscription } from 'rxjs';
 import { AdresseService } from 'src/app/Adresses/Services/adresse.service';
 import { CommonModule } from '@angular/common';
+import { environment } from 'src/environments/environment';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -37,6 +38,10 @@ export class ListeMedecinComponent implements OnInit {
     this.getAdresses();
   }
 
+  setTab(tab: 'list' | 'grid') {
+    this.activeTab = tab;
+  }
+
   Medecin=[] as Medecin[];
   medecin=new  Medecin;
   Adresse=[] as Adresse[]; 
@@ -51,6 +56,7 @@ export class ListeMedecinComponent implements OnInit {
   searchText = '';
   isDropdownOpen = false;
   subscriptions = [] as Subscription[];
+  activeTab: 'list' | 'grid' = 'list';
  
 constructor(private medecinServices: MedecinService, private adresseServices: AdresseService){}
 
@@ -90,6 +96,25 @@ getMedecin() {
     this.medecinServices.getMedecin().subscribe(
       (medecin: any) => {
         this.Medecin = medecin;
+        if (environment.showMocks) {
+          // Inject mock example if absent
+          const mockId = -999;
+          if (!this.Medecin.find((m: any) => m?.id === mockId)) {
+            const mock: any = {
+              id: mockId,
+              nomMedecin: 'Hajar',
+              prenomMedecin: 'Exemple',
+              emailMedecin: 'hajar@example.com',
+              telephoneMedecin_1: '0700000000',
+              sexeMedecin: 'Feminin',
+              dateDeNaissanceMedecin: new Date(),
+              adresse: { ville: 'Casablanca' },
+              specialites: [{ nomSpecialite: 'Urgences' }],
+              archived: 0
+            };
+            this.Medecin.unshift(mock);
+          }
+        }
       },
       (error) => {
         console.error('Erreur lors de la récupération du médecin :', error);

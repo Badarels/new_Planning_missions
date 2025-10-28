@@ -1,9 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'bootstrap/dist/css/bootstrap.min.css';
-@import 'ngx-bootstrap/datepicker/bs-datepicker.css';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
-@import 'ngx-toastr/toastr.css';
+@import 'ngx-toastr/toastr';
 
 /* Variables */
 :root {
@@ -29,47 +28,7 @@ body {
   min-height: 100vh;
 }
 
-/* Layout */
-.main-container {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: var(--sidebar-width);
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  transition: all 0.3s;
-}
-
-.main-content {
-  flex: 1;
-  margin-left: var(--sidebar-width);
-  padding: 20px;
-  padding-top: calc(var(--header-height) + 20px);
-  transition: all 0.3s;
-}
-
-/* Header */
-.header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: var(--sidebar-width);
-  height: var(--header-height);
-  background: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  z-index: 999;
-  transition: all 0.3s;
-}
+/* Layout rules removed here to avoid conflicts with template's assets/css/style.css */
 
 /* Navigation */
 .nav-link {
@@ -199,6 +158,91 @@ body {
 .user_card{
   font-size: small;
 }
+.user-list .card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.user-list table thead th {
+  font-size: 0.85rem;
+  color: #5b6b88;
+  letter-spacing: .2px;
+  border-bottom: 1px solid #ebeef4;
+}
+.user-list table tbody td {
+  font-size: 0.9rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+.user-list .table {
+  border-radius: 6px;
+  overflow: hidden;
+}
+.user-list .table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-accent-bg: #f8f9ff;
+}
+.user-list .btn.buttonMenu,
+.user-list .btn.gridUserbtnmenu {
+  border-color: #e3e9f3;
+}
+.user-list .btn.buttonMenu:hover,
+.user-list .btn.gridUserbtnmenu:hover {
+  background-color: #eef2ff;
+}
+
+/* User list toggles (Vue Liste / Vue Grille) */
+.user-list-toggles .nav-link {
+  padding: .35rem .85rem;
+  margin-right: .5rem;
+  border: 1px solid #e1e7f0;
+  border-radius: 999px;
+  color: #35507a;
+}
+.user-list-toggles .nav-link:hover {
+  background-color: #f5f7fe;
+  color: #4154f1;
+  border-color: #d6def0;
+}
+.user-list-toggles .nav-link.active {
+  background-color: #4154f1;
+  color: #fff;
+  border-color: #4154f1;
+}
+.user-list-toggles {
+  width: 100%;
+  gap: .5rem;
+}
+/* When using btn-group for toggles */
+.user-list-toggles .btn-group .btn {
+  padding: .35rem .85rem;
+  border: 1px solid #e1e7f0;
+  border-radius: 999px !important;
+  color: #35507a;
+  background-color: #fff;
+}
+.user-list-toggles .btn-group .btn:hover {
+  background-color: #f5f7fe;
+  color: #4154f1;
+  border-color: #d6def0;
+}
+.user-list-toggles .btn-group .btn.active,
+.user-list-toggles .btn-group .btn:active {
+  color: #fff !important;
+  background-color: #4154f1 !important;
+  border-color: #4154f1 !important;
+  box-shadow: none;
+}
+
+/* User grid small cards */
+.user-grid-card {
+  border: 1px solid #eef1f6;
+  box-shadow: 0 4px 14px rgba(1,41,112,0.06);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.user-grid-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(1,41,112,0.10);
+}
 .card{
     font-size: smaller;  
 }
@@ -208,6 +252,112 @@ body {
 .fa-recherche{
   width: 20px;
   height: 17px;
+}
+.medecin-search-input {
+  height: 30px;
+  font-size: 0.9rem;
+  padding-right: 36px; /* pour ne pas chevaucher l'icône */
+  border-radius: 6px;
+  padding-left: 12px;
+  letter-spacing: 0.3px;
+  line-height: 1.25;
+  font-family: "Nunito", "Open Sans", Arial, sans-serif;
+}
+.medecin-search-input::placeholder {
+  color: #8aa0c7;
+  font-style: italic;
+  opacity: 0.9;
+}
+.input-group .input-group-text {
+  height: 30px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.input-group .input-group-text i {
+  line-height: 1;
+  font-size: 0.95rem;
+  display: inline-block;
+}
+
+/* --------------------------------------------------------------
+   Combobox (select/dropdown) unified design
+   -------------------------------------------------------------- */
+/* Bootstrap 5 native selects */
+.form-select {
+  height: 38px;
+  padding: 6px 2.25rem 6px 12px;
+  border: 1px solid #85a1c1;
+  border-radius: 6px;
+  color: #012970;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='%23899bbd' d='M3 6l5 5 5-5H3z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right .75rem center;
+  background-size: 12px 12px;
+  letter-spacing: .2px;
+}
+.form-select:focus {
+  border-color: #6c8fb6;
+  box-shadow: 0 0 0 0.2rem rgba(65, 84, 241, 0.08);
+}
+
+/* Legacy selects that use form-control */
+select.form-control {
+  height: 38px;
+  padding: 6px 36px 6px 12px;
+  border: 1px solid #85a1c1;
+  border-radius: 6px;
+  letter-spacing: .2px;
+}
+select.form-control:focus {
+  border-color: #6c8fb6;
+  box-shadow: 0 0 0 0.2rem rgba(65, 84, 241, 0.08);
+}
+
+/* Dropdown buttons used as combobox triggers (e.g., Ajout CH) */
+.dropdown-toggle.border-subtle-blue {
+  border: 1px solid #85a1c1 !important;
+  border-radius: 6px !important;
+  color: #012970;
+  width: 100%;
+  text-align: left;
+  position: relative;
+  padding-right: 2rem;
+}
+.dropdown-toggle.border-subtle-blue::after {
+  position: absolute;
+  right: .75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0;
+}
+.dropdown-toggle.border-subtle-blue:focus,
+.dropdown-toggle.border-subtle-blue:hover {
+  border-color: #6c8fb6 !important;
+  box-shadow: 0 0 0 0.2rem rgba(65, 84, 241, 0.08);
+}
+
+/* Dropdown menu look & feel alignment */
+.dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(1, 41, 112, 0.12);
+}
+.dropdown-menu-wide {
+  min-width: 100%;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.dropdown-item {
+  font-size: 14px;
+}
+.dropdown-item:hover {
+  background-color: #f0f2f8;
+}
+.dropdown-item,
+.dropdown-menu a.dropdown-item {
+  white-space: normal;
 }
 .gridUserbtnmenu:hover {
   background-color: #717ff5;/* Couleur de fond grise */
@@ -1667,5 +1817,32 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/*-------------------------------------------------------------
+   Typo overrides (plus fin et plus compact)
+   ------------------------------------------------------------- */
+.pagetitle h1 {
+  font-size: 20px !important;
+  font-weight: 600;
+}
+
+.breadcrumb {
+  font-size: 12px !important;
+}
+
+.card-title {
+  font-size: 16px !important;
+  margin-bottom: 0.75rem;
+}
+
+table.table thead th,
+table.table tbody td {
+  font-size: 0.92rem;
+}
+
+.section .card-body {
+  font-size: 0.95rem;
+}

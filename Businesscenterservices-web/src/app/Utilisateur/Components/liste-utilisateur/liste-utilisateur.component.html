@@ -1,4 +1,3 @@
-<main id="main" class="main">
     <div class="pagetitle">
         <h1>Liste des utilisateurs</h1>
         <nav>
@@ -16,35 +15,36 @@
             <div class="container-fluid">       
                 <div class="row">
                     <div class="col-lg-12">
-                        <ul class="nav nav-pills mb-3">
-                            <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">Vue Liste</a></li>
-                            <li class="nav-item"><a href="#grid-view" data-toggle="tab" class="nav-link btn-primary">Vue Grille</a></li>
-                            <li class="nav-item"><a  data-toggle="tab" class="nav-link btn-primary" [routerLink]="'/ajoutUtilisateur/ajout'">+ Ajouter nouveau</a></li>
-
-                        </ul>
+                        <div class="d-flex align-items-center mb-3 user-list-toggles w-100 gap-2">
+                          <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-light" [class.active]="activeTab==='list'" (click)="setTab('list')">Vue Liste</button>
+                            <button type="button" class="btn btn-light" [class.active]="activeTab==='grid'" (click)="setTab('grid')">Vue Grille</button>
+                          </div>
+                          <a class="btn btn-primary px-3 ms-auto" [routerLink]="'/ajoutUtilisateur/ajout'">
+                            <i class="bi bi-plus-circle me-1"></i> Ajouter
+                          </a>
+                        </div>
                     </div>
                     <div class="col-lg-12">
-                        <div class="row tab-content">
-                            <div id="list-view" class="tab-pane fade active show col-lg-12">
+                        <div class="row">
+                            <div id="list-view" class="col-lg-12" *ngIf="activeTab==='list'">
                                 <div class="card">
                                     <div class="card-body">
                                       <h2 class="card-title">Utilisateurs</h2>              
                                       <!-- Formulaire de recherche à droite avec une taille md-5 -->
-                                      <div class="col-md-4 col-lg-4 offset-md-8 justify-content-md-end">
+                                      <div class="col-md-4 col-lg-4 ms-auto justify-content-md-end">
                                         <form class="form-inline mb-3 ml-auto">
                                           <div class="form-group mx-md-2 mb-2">
                                             <div class="input-group">
-                                              <input class="form-control with-blue-border fas fa-search" type="search" placeholder="Rechercher" [(ngModel)]="filtreText" aria-label="Search" name="filtreText">
-                                              <div class="input-group-append">
-                                                <span class="input-group-text"><i class="fas fa-search fa-recherche"></i></span>
-                                              </div>
+                                              <input class="form-control with-blue-border medecin-search-input" type="search" placeholder="Rechercher" [(ngModel)]="filtreText" aria-label="Search" name="filtreText">
+                                              <span class="input-group-text"><i class="bi bi-search"></i></span>
                                             </div>  
                                           </div>
                                         </form>
                                       </div> 
-                                      <div class="table-responsive user_card">
+                                      <div class="table-responsive user_card user-list">
                                       <!-- Tableau avec des lignes rayées -->
-                                      <table class="table datatable">
+                                      <table class="table table-striped align-middle datatable">
                                         <thead>
                                           <tr>
                                             <th scope="col" style="width: 900px;">Nom</th>
@@ -79,8 +79,8 @@
                                                 <div ngbDropdownMenu [ngClass]="{'show': isDropdownOpen}" aria-labelledby="dropdownMenuButton">
                                                   <!-- Utilisez [routerLink] pour "Modifier" et (click) pour "Supprimer" -->
                                                   
-                                                  <button class="dropdown-item" [routerLink]="['/ProfilUtilisateur/profil', user?.id]">Aperçue</button>
-                                                  <button class="dropdown-item" [routerLink]="['/ModifierUtilisateur/edit', user?.id]">Modifier</button>
+                                                  <button class="dropdown-item" [routerLink]="['/listeUtilisateur/profil', user?.id]">Aperçue</button>
+                                                  <button class="dropdown-item" [routerLink]="['/listeUtilisateur/edit', user?.id]">Modifier</button>
                                                   <button class="dropdown-item" (click)="supprimerUsers($event, user?.id)">Supprimer</button>
                                                 </div> 
                                               </div>
@@ -88,52 +88,30 @@
                                         </tr>
                                         </tbody>
                                       </table>
-                                      <!-- Fin du tableau avec des lignes rayées -->
-                                    </div>
-                                    </div>
-                                  </div>
+                                        </div>
+                                    </div>  
+                                </div>
                             </div>
-                            <div id="grid-view" class="tab-pane fade col-lg-12">
-                                <div class="row">
-                              
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12" *ngFor="let user of users">
-                                        <div class="card card-profile">
-                                          <div class="card-header justify-content-end pb-1">
-                                            <div ngbDropdown class="d-inline-flex col-offset-4 ml-auto align-items-center justify-content-end" style="position: relative;">
-                                              <button class="btn btn-light buttonMenu gridUserbtnmenu float-right" id="dropdownMenuButton" style="font-size: 12px; background-color: white; border: 1px 1cap grey;" ngbDropdownToggle>
-                                                <i class="bi bi-three-dots"></i>
-                                            </button>                                            
-                               
-                                              <div ngbDropdownMenu [ngClass]="{'show': isDropdownOpen}" aria-labelledby="dropdownMenuButton">
-                                                  <!-- Utilisez [routerLink] pour "Modifier" et (click) pour "Supprimer" -->
-                                                  <button class="dropdown-item" [routerLink]="['/ModifierUtilisateur', user?.id]">Modifier</button>
-                                                  <button class="dropdown-item" (click)=" supprimerUsers($event, user?.id)">Supprimer</button>
-                                              </div>
-                                          </div>
-                                          
-                                          </div>
-                                
-                                            <div class="card-body pt-2">
+
+                            <div id="grid-view" class="col-lg-12" *ngIf="activeTab==='grid'">
+                                <div class="row user-grid g-3">
+                                    <div class="col-12 text-center text-muted" *ngIf="(users | users: filtreText).length === 0">
+                                        Aucun utilisateur trouvé.
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12" *ngFor="let user of users | users: filtreText;">
+                                        <div class="card card-profile user-grid-card">
+                                            <div class="card-body pt-3">
                                                 <div class="text-center">
-                                                    <div class="profile-photo">
-                                                        <img src="images/profile/small/pic2.jpg" width="100" class="img-fluid rounded-circle" alt="">
+                                                    <div class="profile-photo mb-2">
+                                                        <img src="assets/img/profile-img.jpg" width="64" height="64" class="img-fluid rounded-circle" alt="">
                                                     </div>
-                                                    <h3 class="mt-4 mb-1">{{user?.nomUser}}</h3>
-                                                    <p class="text-muted">{{user?.prenomUser}}</p>
-                                                    <ul class="list-group mb-3 list-group-flush">
-                                                        <li class="list-group-item px-0 d-flex justify-content-between">
-                                                            <span>Role :</span><strong>{{user?.roles?.nomRoles}}</strong></li>
-                                                        <li class="list-group-item px-0 d-flex justify-content-between">
-                                                        <li class="list-group-item px-0 d-flex justify-content-between">
-                                                            <span class="mb-0">N° Téléphone :</span><strong>{{user?.telephoneUser}}</strong>
-                                                        </li>
-                                                        <li class="list-group-item px-0 d-flex justify-content-between">
-                                                            <span class="mb-0">Adresse :</span><strong>{{user?.adresseUser}}</strong>
-                                                        </li>
-                                                        <li class="list-group-item px-0 d-flex justify-content-between">
-                                                            <span class="mb-0">Email:</span><strong>{{user?.emailUser}}</strong></li>
-                                                    </ul>
-                                                    <a class="btn btn-outline-primary btn-rounded mt-3 px-4" [routerLink]="['/ProfilUtilisateur', user?.id]">Aperçu</a>
+                                                    <div class="fw-semibold small">{{user?.nomUser}} {{user?.prenomUser}}</div>
+                                                    <div class="text-muted extra-small">{{user?.roles?.nomRoles}}</div>
+                                                    <div class="mt-2 small">
+                                                        <div><i class="bi bi-telephone me-1"></i>{{user?.telephoneUser}}</div>
+                                                        <div class="text-truncate"><i class="bi bi-geo-alt me-1"></i>{{user?.adresseUser}}</div>
+                                                    </div>
+                                                    <a class="btn btn-outline-primary btn-sm mt-3 px-3" [routerLink]="['/listeUtilisateur/profil', user?.id]">Aperçu</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,4 +124,4 @@
             </div>
         </div>
     </section>
-</main>
+

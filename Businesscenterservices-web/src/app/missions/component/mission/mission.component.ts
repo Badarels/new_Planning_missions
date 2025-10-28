@@ -111,6 +111,25 @@ export class MissionComponent {
       this.missionServices.getMissions().subscribe(
         (data: Missions[]) => {
           this.missions = data.filter(mission => mission.archived == 0);
+          // Inject mock example if absent
+          const mockId = -999;
+          if (!this.missions.find(m => (m as any)?.id === mockId)) {
+            const mock: any = {
+              id: mockId,
+              detailMission: 'Remplacement – Hajar (exemple)',
+              typeHoraireMission: 'JOUR',
+              salaireMission: 500,
+              dateMissions: new Date().toISOString(),
+              dateFinMissions: new Date().toISOString(),
+              startTime: '08:00',
+              endTime: '18:00',
+              specialite: { nomSpecialite: 'Urgences' },
+              medecin: { prenomMedecin: 'Hajar', nomMedecin: 'Exemple', emailMedecin: 'hajar@example.com', telephoneMedecin_1: '0700000000' },
+              centreHospitalier: { nom_ch: 'Hajar CH (exemple)', adresse: { ville: 'Casablanca', nomRue: 'Boulevard Example', numeroRue: '10', departement: 'Maarif', region: 'Casablanca-Settat', codePostal: '20000' } },
+              archived: 0
+            };
+            this.missions.unshift(mock);
+          }
         },
         (error) => {
           console.error('Erreur lors de la récupération des missions', error);

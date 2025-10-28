@@ -1,0 +1,17 @@
+/* Host (app-sidebar) controls the flex width */
+:host {
+  display: block;
+}
+
+/* Inner aside fills host width */
+.sidebar { overflow: hidden; }
+
+/* Collapsed visuals (labels/chevrons) */
+:host(.collapsed) .sidebar-header h5 { display: none; }
+:host(.collapsed) .sidebar-content .nav-link span { display: none; }
+:host(.collapsed) .sidebar-content .nav-link { justify-content: center; }
+:host(.collapsed) .sidebar-content .nav-link i { margin-right: 0 !important; }
+:host(.collapsed) .sidebar-content .nav-item .collapse { display: none !important; }
+
+/* Optionnel: tooltip style when collapsed */
+.sidebar .nav-link { white-space: nowrap; }

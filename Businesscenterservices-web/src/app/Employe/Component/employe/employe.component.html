@@ -1,7 +1,4 @@
 
-
-<main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Liste des Employés</h1>
       <div class="col-lg-12">
@@ -9,17 +6,10 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a [routerLink]="'/Accueil/accueil'">ACCUEIL</a></li>
           <li class="breadcrumb-item">Liste</li>
-          <li class="navmedecin">
-            <div class="row mb-3">
-              <div class="col-sm-10 col-lg-12">
-                <button type="submit" class="btn btn-primary" [routerLink]="'/AjoutEmploye/Ajout-employe'">+Ajout nouveau employe</button>
-              </div>
-            </div> 
-          </li>
         </ol>
       </nav>
-      </div>
     </div><!-- End Page Title -->
+    </div>
 <section class="section">
 <!--**********************************
     Nav header end
@@ -33,46 +23,36 @@
     <div class="container-fluid">            
 				<div class="row">
           <div class="col-lg-12">
-            <!-- Default Card  champ de recherche et choix de l'affichage des medecins-->
-            <div class="card" style="height: 60%;">
-              <div class="card-body py-2">
-                <ul class="nav nav-pills" style="margin-top: 0%;">
-                 
-                  <li class="nav-item">
-                    <a class="nav-link mr-1 active" href="#list-view" data-toggle="tab">Vue Liste</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#grid-view" data-toggle="tab" class="nav-link " aria-current="page">Vue Grille</a>
-                  </li>
-
-                  <li class="nav-item ml-auto offset-md-6 justify-content-md-end">
-                    <div class="col-md-12 col-lg-12 d-flex"> <!-- Utilisation de col-md-8 pour une longueur plus grande et d-flex pour la flexibilité -->
-                      <form class="form-inline mb-1">
-                        <div class="form-group">
-                          <div class="input-group" style="height: 30px;"> 
-                            <input class="form-control form-control-sm with-blue-border fas fa-search" type="search" [(ngModel)]="filterText" placeholder="Rechercher" aria-label="Search" name="filterText">
-                            <div class="input-group-append" style="height: 30px;">
-                              <span class="input-group-text"><i class="fas fa-search fa-recherche"></i></span>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </li>                  
-                  
-                </ul>
+            <!-- Barre d'actions: Vue Liste/Grille + Ajouter -->
+            <div class="d-flex align-items-center mb-3 w-100 gap-2 user-list-toggles">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-light" [class.active]="activeTab==='list'" (click)="setTab('list')">Vue Liste</button>
+                <button type="button" class="btn btn-light" [class.active]="activeTab==='grid'" (click)="setTab('grid')">Vue Grille</button>
               </div>
+              <a class="btn btn-primary px-3 ms-auto" [routerLink]="'/employe/ajout'">
+                <i class="bi bi-plus-circle me-1"></i> Ajouter
+              </a>
             </div>
             
             <!-- End Default Card -->     
              </div>      
                         <div class="col-lg-12">
-                          <div class="row tab-content">
-                              <div id="list-view" class="tab-pane fade active show col-lg-12">
+                          <div class="row">
+                              <div id="list-view" class="col-lg-12" *ngIf="activeTab==='list'">
                                   <div class="card">
                                       <div class="card-body">
                                         <h2 class="card-title">Employes</h2>              
-                                        <!-- Formulaire de recherche à droite avec une taille md-5 -->
+                                        <!-- Formulaire de recherche à droite -->
+                                        <div class="col-md-4 col-lg-4 ms-auto justify-content-md-end">
+                                          <form class="form-inline mb-3 ml-auto">
+                                            <div class="form-group mx-md-2 mb-2">
+                                              <div class="input-group">
+                                                <input class="form-control with-blue-border medecin-search-input" type="search" placeholder="Rechercher" [(ngModel)]="filterText" aria-label="Search" name="filterText">
+                                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                              </div>
+                                            </div>
+                                          </form>
+                                        </div>
                           
                                         <div class="table-responsive user_card">
                                         <!-- Tableau avec des lignes rayées -->
@@ -108,8 +88,8 @@
                                                   <div ngbDropdownMenu [ngClass]="{'show': isDropdownOpen}" aria-labelledby="dropdownMenuButton">
                                                     <!-- Utilisez [routerLink] pour "Modifier" et (click) pour "Supprimer" -->
                                                     
-                                                    <button class="dropdown-item" [routerLink]="['/ProfilEmploye/profil-employe', emp.id]" >Aperçue</button>
-                                                    <button class="dropdown-item" [routerLink]="['/EditEmploye/edit-employe', emp.id]">Modifier</button>
+                                                    <button class="dropdown-item" [routerLink]="['/employe/profil', emp.id]" >Aperçu</button>
+                                                    <button class="dropdown-item" [routerLink]="['/employe/edit', emp.id]">Modifier</button>
                                                     <button class="dropdown-item" (click)="supprimerEmploye(emp.id)">Supprimer</button>
                                                   </div>
                                                 </div>
@@ -122,59 +102,50 @@
                                       </div>
                                     </div>
                               </div>
-                              <div id="grid-view" class="tab-pane fade col-lg-12">
-                                  <div class="row">
-                                
-
-                                      <div class="col-lg-4 col-md-6 col-sm-6 col-12" *ngFor="let emp of employe | employepipe: filterText">
-                                          <div class="card card-profile">
+                              <div id="grid-view" class="col-lg-12" *ngIf="activeTab==='grid'">
+                                  <div class="row g-3">
+                                      <div class="col-12 text-center text-muted" *ngIf="(employe | employepipe: filterText).length === 0">Aucun employé trouvé.</div>
+                                      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12" *ngFor="let emp of employe | employepipe: filterText">
+                                          <div class="card card-profile user-grid-card">
                                             <div class="card-header justify-content-end pb-1">
                                               <div ngbDropdown class="d-inline-flex col-offset-4 ml-auto align-items-center justify-content-end" style="position: relative;">
                                                 <button class="btn btn-light buttonMenu gridUserbtnmenu float-right" id="dropdownMenuButton" style="font-size: 12px; background-color: white; border: 1px 1cap grey;" ngbDropdownToggle>
                                                   <i class="bi bi-three-dots"></i>
                                               </button>                                            
-                                 
+ 
                                                 <div ngbDropdownMenu [ngClass]="{'show': isDropdownOpen}" aria-labelledby="dropdownMenuButton">
                                                     <!-- Utilisez [routerLink] pour "Modifier" et (click) pour "Supprimer" -->
-                                                    <button class="dropdown-item" [routerLink]="['/EditEmploye/edit-employe', emp.id]">Modifier</button>
+                                                    <button class="dropdown-item" [routerLink]="['/employe/edit', emp.id]">Modifier</button>
                                                     <button class="dropdown-item" (click)="supprimerEmploye(emp.id)">Supprimer</button>
                                                 </div>
                                             </div>
                                             
                                             </div>
                                             
-                                              <div class="card-body pt-2">
-                                                  <div class="text-center">
-                                                      <div class="profile-photo">
-                                                          <img src="images/profile/small/pic2.jpg" width="100" class="img-fluid rounded-circle" alt="">
-                                                      </div>
-                                                      <h3 class="mt-4 mb-1">{{emp.nom}}</h3>
-                                                      <p class="text-muted">{{emp.prenom}}</p>
-                                                      <ul class="list-group mb-3 list-group-flush">
-                                                          <li class="list-group-item px-0 d-flex justify-content-between">
-                                                              <span>Role :</span><strong></strong></li>
-                                                          <li class="list-group-item px-0 d-flex justify-content-between">
-                                                              <span class="mb-0">N° Telephone :</span><strong>{{emp.telephone}}</strong></li>
-                                                          <li class="list-group-item px-0 d-flex justify-content-between">
-                                                              <span class="mb-0">Adresse :</span><strong>{{emp.adresseEmploye}}</strong></li>
-                                                          <li class="list-group-item px-0 d-flex justify-content-between">
-                                                              <span class="mb-0">Email:</span><strong>{{emp.email}}</strong></li>
-                                                      </ul>
-                                                      <a class="btn btn-outline-primary btn-rounded mt-3 px-4" 
-                                                      value="" [routerLink]="['/ProfilEmploye/profil-employe', emp.id]">Aperçu</a>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>  
-                              </div>
-                              </div>
-                          </div>
-                      </div>
-          </div> 
-        </div>
-     </div>   
+                                             <div class="card-body pt-2">
+                                                 <div class="text-center">
+                                                     <div class="profile-photo mb-2">
+                                                         <img src="assets/img/profile-img.jpg" width="64" height="64" class="img-fluid rounded-circle" alt="">
+                                                     </div>
+                                                     <div class="fw-semibold small">{{emp.nom}} {{emp.prenom}}</div>
+                                                     <div class="text-muted extra-small">{{emp.email}}</div>
+                                                     <div class="mt-2 small">
+                                                         <div><i class="bi bi-telephone me-1"></i>{{emp.telephone}}</div>
+                                                         <div class="text-truncate"><i class="bi bi-geo-alt me-1"></i>{{emp.adresseEmploye}}</div>
+                                                     </div>
+                                                     <a class="btn btn-outline-primary btn-sm mt-3 px-3" [routerLink]="['/employe/profil', emp.id]">Aperçu</a>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>  
+                                  </div>
+                              </div> <!-- /grid-view -->
+                          </div> <!-- /row (list/grid) -->
+                      </div> <!-- /col-lg-12 -->
+                  </div> <!-- /row -->
+              </div> <!-- /container-fluid -->
+          </div> <!-- /content-body -->
 </section>
-</main>
 
 
 

@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UsersPipe } from 'src/app/pipe/users.pipe';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-liste-utilisateur',
@@ -37,6 +38,7 @@ export class ListeUtilisateurComponent implements OnInit {
   subscriptions = [] as Subscription[];
   connectedUser = new UtilisateurModel();
   filtreText: string="";
+  activeTab: 'list' | 'grid' = 'list';
 
   constructor(
     private UtilisateurServices: UtilisateurService,
@@ -45,6 +47,9 @@ export class ListeUtilisateurComponent implements OnInit {
   ){}
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
+  }
+  setTab(tab: 'list' | 'grid') {
+    this.activeTab = tab;
   }
 
   getUtilisateur() {
@@ -55,7 +60,27 @@ export class ListeUtilisateurComponent implements OnInit {
           // Si les utilisateurs sont directement dans 'data', vous pouvez faire comme ceci :
           this.users = data.filter(U=>U.archived==0);
           console.log(this.users)  
-      
+          if (environment.showMocks) {
+            // Inject mock example if absent
+            const mockId = -999;
+            if (!this.users.find(u => u?.id === mockId)) {
+              const mock: UtilisateurModel = {
+                id: mockId,
+                nomUser: 'Hajar',
+                prenomUser: 'Exemple',
+                emailUser: 'hajar@example.com',
+                telephoneUser: '0700000000',
+                adresseUser: 'Casablanca',
+                sexeUser: 'Feminin',
+                dateNaissanceUser: new Date().toISOString(),
+                numeroPieceIdentiteUser: 'HX-0001',
+                roles: { id: -1, nomRoles: 'Admin (exemple)' } as any,
+                archived: 0
+              } as UtilisateurModel;
+              this.users.unshift(mock);
+            }
+          }
+
         },
         (error) => {
           console.error('Erreur lors de la récupération des utilisateurs :', error);

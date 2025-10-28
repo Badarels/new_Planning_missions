@@ -1,6 +1,5 @@
 
 
-<main id="main" class="main">
 
     <div class="pagetitle">
       <h1>Liste des Clients</h1>
@@ -29,14 +28,12 @@
               
                   <h2 class="card-title">Centre Hospitaliers</h2>              
                   <!-- Formulaire de recherche à droite avec une taille md-5 -->
-                  <div class="col-md-4 col-lg-4 offset-md-8 justify-content-md-end">
+                  <div class="col-md-4 col-lg-4 ms-auto justify-content-md-end">
                     <form class="form-inline mb-3 ml-auto">
                       <div class="form-group mx-md-2 mb-2">
                         <div class="input-group">
-                          <input class="form-control with-blue-border fas fa-search" type="search"  [(ngModel)]="filteText" placeholder="Rechercher" aria-label="Search" name="filteText">
-                          <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-search fa-recherche"></i></span>
-                          </div>
+                          <input class="form-control with-blue-border fas fa-search medecin-search-input" type="search"  [(ngModel)]="filteText" placeholder="Rechercher" aria-label="Search" name="filteText">
+                          <span class="input-group-text"><i class="fas fa-search fa-recherche"></i></span>
                         </div>
                       </div>
                     </form>
@@ -88,7 +85,6 @@
           </div>
         </div>
       </section>
-</main>
 
 
 
