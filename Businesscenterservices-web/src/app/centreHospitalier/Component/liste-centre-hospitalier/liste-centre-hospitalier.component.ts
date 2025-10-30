@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ToastService } from 'src/app/Utilisateur/Services/toast.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-liste-centre-hospitalier',
@@ -67,7 +68,8 @@ export class ListeCentreHospitalierComponent implements OnInit{
           this.centreHospitaliers = data.filter(ch => ch.archived == 0);
           // Inject mock example if absent
           const mockId = -999;
-          if (!this.centreHospitaliers.find(ch => (ch as any)?.id === mockId)) {
+          // Forcer l'ajout du mock en développement
+          if (!environment.production) {
             const mock: any = {
               id: mockId,
               nom_ch: 'Hajar CH (exemple)',

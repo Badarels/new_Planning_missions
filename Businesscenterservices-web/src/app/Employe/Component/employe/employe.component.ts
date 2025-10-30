@@ -70,21 +70,23 @@ export class EmployeComponent implements OnInit{
           this.employe = data.filter(emp => emp.archive == 0);
           console.log(data)
           if (environment.showMocks) {
+            console.log('Checking if mock exists in employe list');
             // Inject mock example if absent
             const mockId = -999;
-            if (!this.employe.find(e => (e as any)?.id === mockId)) {
-              const mock: any = {
-                id: mockId,
-                nom: 'Hajar',
-                prenom: 'Exemple',
-                adresseEmploye: 'Casablanca',
-                sexe: 'Feminin',
-                datenaissance: new Date().toISOString(),
-                email: 'hajar.emp@example.com',
-                telephone: '0700000002',
-                archive: 0
-              };
-              this.employe.unshift(mock);
+            // Forcer l'ajout du mock en développement
+            if (!environment.production) {
+               const mock: any = {
+                 id: mockId,
+                 nom: 'Hajar',
+                 prenom: 'Exemple',
+                 adresseEmploye: 'Casablanca',
+                 sexe: 'Feminin',
+                 datenaissance: new Date().toISOString(),
+                 email: 'hajar.emp@example.com',
+                 telephone: '0700000002',
+                 archive: 0
+               };
+               this.employe.unshift(mock);
             }
           }
         },

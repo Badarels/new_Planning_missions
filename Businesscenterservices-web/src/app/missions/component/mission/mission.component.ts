@@ -19,7 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterLink, RouterModule } from '@angular/router';
 import { SharedModule } from "../../../shared/shared.module";
-
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-mission',
@@ -113,7 +113,8 @@ export class MissionComponent {
           this.missions = data.filter(mission => mission.archived == 0);
           // Inject mock example if absent
           const mockId = -999;
-          if (!this.missions.find(m => (m as any)?.id === mockId)) {
+          // Forcer l'ajout du mock en développement
+          if (!environment.production) {
             const mock: any = {
               id: mockId,
               detailMission: 'Remplacement – Hajar (exemple)',

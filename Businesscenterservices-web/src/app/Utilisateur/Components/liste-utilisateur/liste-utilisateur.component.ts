@@ -10,7 +10,6 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UsersPipe } from 'src/app/pipe/users.pipe';
 import { environment } from 'src/environments/environment';
-
 @Component({
     selector: 'app-liste-utilisateur',
     templateUrl: './liste-utilisateur.component.html',
@@ -62,23 +61,24 @@ export class ListeUtilisateurComponent implements OnInit {
           console.log(this.users)  
           if (environment.showMocks) {
             // Inject mock example if absent
-            const mockId = -999;
-            if (!this.users.find(u => u?.id === mockId)) {
-              const mock: UtilisateurModel = {
-                id: mockId,
-                nomUser: 'Hajar',
-                prenomUser: 'Exemple',
-                emailUser: 'hajar@example.com',
-                telephoneUser: '0700000000',
-                adresseUser: 'Casablanca',
-                sexeUser: 'Feminin',
-                dateNaissanceUser: new Date().toISOString(),
-                numeroPieceIdentiteUser: 'HX-0001',
-                roles: { id: -1, nomRoles: 'Admin (exemple)' } as any,
-                archived: 0
-              } as UtilisateurModel;
-              this.users.unshift(mock);
-            }
+           const mockId = -999;
+           // Forcer l'ajout du mock en développement
+           if (!environment.production) {
+             const mock: UtilisateurModel = {
+               id: mockId,
+               nomUser: 'Hajar',
+               prenomUser: 'Exemple',
+               emailUser: 'hajar@example.com',
+               telephoneUser: '0700000000',
+               adresseUser: 'Casablanca',
+               sexeUser: 'Feminin',
+               dateNaissanceUser: new Date().toISOString(),
+               numeroPieceIdentiteUser: 'HX-0001',
+               roles: { id: -1, nomRoles: 'Admin (exemple)' } as any,
+               archived: 0
+             } as UtilisateurModel;
+             this.users.unshift(mock);
+           }
           }
 
         },

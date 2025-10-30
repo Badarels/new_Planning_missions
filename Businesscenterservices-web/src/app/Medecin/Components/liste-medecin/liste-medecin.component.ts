@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SearchPipe } from "../../../pipe/search.pipe";
 
+
 @Component({
     selector: 'app-liste-medecin',
     templateUrl: './liste-medecin.component.html',
@@ -99,7 +100,8 @@ getMedecin() {
         if (environment.showMocks) {
           // Inject mock example if absent
           const mockId = -999;
-          if (!this.Medecin.find((m: any) => m?.id === mockId)) {
+          // Forcer l'ajout du mock en développement
+          if (!environment.production) {
             const mock: any = {
               id: mockId,
               nomMedecin: 'Hajar',

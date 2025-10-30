@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthServices } from '../../authentification/Services/auth.services';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -18,13 +18,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ],
 })
 export class HeaderComponent {
+  @Output() toggleSidebarEvent = new EventEmitter<void>();
+
   constructor(private authService: AuthServices) { }
 
   toggleSidebar() {
-    // Revenir au comportement d'origine: simplement ouvrir/fermer le panneau
-    const sidebar = document.querySelector('.sidebar') as HTMLElement;
-    if (!sidebar) return;
-    sidebar.classList.toggle('show');
+    this.toggleSidebarEvent.emit();
   }
 
   logout() {
