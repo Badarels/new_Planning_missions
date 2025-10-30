@@ -9,5 +9,10 @@ import { RouterOutlet } from '@angular/router';
     imports: [RouterOutlet]
 })
 export class AppComponent{
-  title = 'Businesscenterservice-web';
+  title = 'Businesscenterservices-web';
+  sidebarHidden = false; // false = visible, true = caché
+
+  toggleSidebar() {
+    this.sidebarHidden = !this.sidebarHidden;
+  }
 }

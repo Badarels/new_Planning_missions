@@ -166,7 +166,7 @@ body {
 .user-list table thead th {
   font-size: 0.85rem;
   color: #5b6b88;
-  letter-spacing: .2px;
+  letter-spacing: 0.2px;
   border-bottom: 1px solid #ebeef4;
 }
 .user-list table tbody td {
@@ -296,7 +296,7 @@ body {
   background-repeat: no-repeat;
   background-position: right .75rem center;
   background-size: 12px 12px;
-  letter-spacing: .2px;
+  letter-spacing: 0.2px;
 }
 .form-select:focus {
   border-color: #6c8fb6;
@@ -309,7 +309,7 @@ select.form-control {
   padding: 6px 36px 6px 12px;
   border: 1px solid #85a1c1;
   border-radius: 6px;
-  letter-spacing: .2px;
+  letter-spacing: 0.2px;
 }
 select.form-control:focus {
   border-color: #6c8fb6;
@@ -481,6 +481,18 @@ h6 {
   .sidebar.show {
     left: 0;
   }
+  
+  .header {
+    left: 0;
+  }
+}
+
+/* When sidebar is collapsed, expand main content */
+main.full-width {
+  margin-left: 0 !important;
+  width: 100% !important;
+  /* Transition fluide pour l'UI */
+  transition: all 0.3s ease;
 }
 
 /*--------------------------------------------------------------
@@ -1846,4 +1858,11 @@ table.table tbody td {
 
 .section .card-body {
   font-size: 0.95rem;
+}
+
+main.full-width {
+  margin-left: 0 !important;
+  width: 100% !important;
+  /* Transition fluide pour l'UI */
+  transition: all 0.3s ease;
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { filter } from 'rxjs/operators';
@@ -25,6 +25,7 @@ import { FooterComponent } from '../footer/footer.component';
 })
 export class MainContaintsComponent implements OnInit {
   title: string = 'Tableau de bord';
+  @ViewChild(SidebarComponent) sidebarComponent?: SidebarComponent;
 
   constructor(private router: Router) {}
 
@@ -41,6 +42,15 @@ export class MainContaintsComponent implements OnInit {
     const route = this.router.routerState.snapshot.root.firstChild;
     if (route?.data) {
       this.title = route.data['title'] || 'Tableau de bord';
+    }
+  }
+
+  toggleSidebar() {
+    const isDesktop = window.innerWidth >= 1200;
+    if (isDesktop) {
+      document.body.classList.toggle('toggle-sidebar');
+    } else {
+      this.sidebarComponent?.toggle();
     }
   }
 }

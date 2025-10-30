@@ -24,11 +24,12 @@ export class SidebarComponent {
   clientsCollapsed = true;
   missionsCollapsed = true;
   personnelCollapsed = true;
-
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.isMobile = window.innerWidth < 1200;
     if (!this.isMobile) {
+      const sidebar = document.querySelector('.sidebar') as HTMLElement;
+      sidebar?.classList.remove('show');
       this.isCollapsed = false;
     }
   }
