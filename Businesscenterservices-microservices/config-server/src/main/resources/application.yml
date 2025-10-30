@@ -1,0 +1,23 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: file:///${CONFIG_REPO_PATH:${user.home}/config/bcs-config-repo}
+          default-label: main
+          clone-on-start: true
+  security:
+    user:
+      name: config-user
+      password: config-pass
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

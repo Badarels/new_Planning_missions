@@ -1,0 +1,41 @@
+server:
+  port: 9005
+
+spring:
+  application:
+    name: notifications-service
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+kafka:
+  bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+  topic:
+    mission-events: ${MISSION_EVENTS_TOPIC:missions.events}
+
+sms:
+  provider: ${SMS_PROVIDER:twilio}
+  account-sid: ${SMS_ACCOUNT_SID:changeme}
+  auth-token: ${SMS_AUTH_TOKEN:changeme}
+  from-number: ${SMS_FROM_NUMBER:+1234567890}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-user:eureka-pass@localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true

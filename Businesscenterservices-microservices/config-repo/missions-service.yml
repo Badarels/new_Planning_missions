@@ -1,0 +1,36 @@
+server:
+  port: 9004
+
+spring:
+  application:
+    name: missions-service
+  datasource:
+    url: jdbc:postgresql://localhost:5433/bcs_missions
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+kafka:
+  bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+  topic:
+    mission-events: ${MISSION_EVENTS_TOPIC:missions.events}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-user:eureka-pass@localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true

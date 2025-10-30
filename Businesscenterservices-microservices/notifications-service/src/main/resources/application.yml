@@ -1,0 +1,35 @@
+server:
+  port: 9005
+
+spring:
+  application:
+    name: notifications-service
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+kafka:
+  bootstrap-servers: localhost:9092
+  topic:
+    mission-events: missions.events
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-user:eureka-pass@localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true

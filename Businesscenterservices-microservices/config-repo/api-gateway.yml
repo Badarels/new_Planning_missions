@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+  security:
+    user:
+      name: gateway-user
+      password: gateway-pass
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-user:eureka-pass@localhost:8761/eureka/
+
+jwt:
+  secret: ${JWT_SECRET:businesscenterservices123456789}
+  excluded-paths:
+    - /auth/login
+    - /auth/register
+    - /auth/refresh
+    - /actuator/health
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

@@ -1,0 +1,23 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: discovery-server
+  security:
+    user:
+      name: eureka-user
+      password: eureka-pass
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+# Désactiver l'enregistrement automatique du client pour le serveur lui-même
+# (peut être ajusté si on souhaite l'autosurveillance)
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
